@@ -1,0 +1,38 @@
+version: '3.9'
+
+# Uso: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+
+  db:
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  app:
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  nginx:
+    deploy:
+      resources:
+        limits:
+          memory: 64m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
