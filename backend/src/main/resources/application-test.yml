@@ -1,0 +1,14 @@
+spring:
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+jwt:
+  secret: test-secret-key-min-256-bits-only-for-tests-not-production
+  expiration-ms: 3600000
+
+cors:
+  allowed-origins: http://localhost:5173
