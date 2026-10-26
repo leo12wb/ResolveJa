@@ -25,4 +25,17 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
         @Param("fim") Instant fim);
 
     Optional<Agendamento> findByIdAndPrestadorId(UUID id, UUID prestadorId);
+
+    @Query("""
+        SELECT a FROM Agendamento a
+        WHERE a.prestador.id = :prestadorId
+          AND a.status = :status
+          AND a.dataHora >= :agora
+        ORDER BY a.dataHora ASC
+        """)
+    List<Agendamento> findProximos(
+        @Param("prestadorId") UUID prestadorId,
+        @Param("status") Agendamento.Status status,
+        @Param("agora") Instant agora,
+        org.springframework.data.domain.Pageable pageable);
 }
