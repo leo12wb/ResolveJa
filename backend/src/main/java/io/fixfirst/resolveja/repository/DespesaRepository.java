@@ -29,6 +29,8 @@ public interface DespesaRepository extends JpaRepository<Despesa, UUID> {
 
     Optional<Despesa> findByIdAndPrestadorId(UUID id, UUID prestadorId);
 
+    long countByPrestadorId(UUID prestadorId);
+
     @Query("""
         SELECT COALESCE(SUM(d.valor), 0) FROM Despesa d
         WHERE d.prestador.id = :prestadorId

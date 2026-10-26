@@ -40,6 +40,8 @@ public interface ServicoRepository extends JpaRepository<Servico, UUID> {
 
     long countByPrestadorIdAndStatus(UUID prestadorId, Servico.Status status);
 
+    long countByPrestadorId(UUID prestadorId);
+
     @Query("""
         SELECT COALESCE(SUM(s.valor), 0) FROM Servico s
         WHERE s.prestador.id = :prestadorId

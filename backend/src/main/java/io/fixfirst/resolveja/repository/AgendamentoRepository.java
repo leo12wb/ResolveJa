@@ -26,6 +26,8 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
 
     Optional<Agendamento> findByIdAndPrestadorId(UUID id, UUID prestadorId);
 
+    long countByPrestadorId(UUID prestadorId);
+
     @Query("""
         SELECT a FROM Agendamento a
         WHERE a.prestador.id = :prestadorId

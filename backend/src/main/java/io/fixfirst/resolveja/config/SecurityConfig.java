@@ -39,7 +39,10 @@ public class SecurityConfig {
 
             // Rotas públicas
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/registro",
+                        "/api/auth/login",
+                        "/api/auth/recuperar-senha",
+                        "/api/auth/redefinir-senha").permitAll()
                 .requestMatchers(HttpMethod.GET,  "/api/orcamento/public/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/orcamento/public/**").permitAll()
                 .anyRequest().authenticated()

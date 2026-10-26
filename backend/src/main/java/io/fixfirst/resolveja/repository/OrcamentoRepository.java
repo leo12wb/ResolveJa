@@ -29,4 +29,6 @@ public interface OrcamentoRepository extends JpaRepository<Orcamento, UUID> {
     boolean existsByTokenPublico(String tokenPublico);
 
     long countByPrestadorIdAndStatus(UUID prestadorId, Orcamento.Status status);
+
+    long countByPrestadorId(UUID prestadorId);
 }
