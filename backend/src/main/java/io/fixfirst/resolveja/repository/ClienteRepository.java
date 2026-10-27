@@ -14,14 +14,24 @@ import java.util.UUID;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 
-    @Query("""
-        SELECT c FROM Cliente c
-        WHERE c.prestador.id = :prestadorId
+    @Query(value = """
+        SELECT * FROM cliente c
+        WHERE c.prestador_id = CAST(:prestadorId AS uuid)
           AND c.ativo = true
-          AND (:q IS NULL OR LOWER(c.nome) LIKE LOWER(CONCAT('%', :q, '%'))
-                          OR c.telefone LIKE CONCAT('%', :q, '%'))
+          AND (CAST(:q AS text) IS NULL
+               OR LOWER(c.nome) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%'))
+               OR c.telefone LIKE CONCAT('%', CAST(:q AS text), '%'))
         ORDER BY c.nome
-        """)
+        """,
+        countQuery = """
+        SELECT COUNT(*) FROM cliente c
+        WHERE c.prestador_id = CAST(:prestadorId AS uuid)
+          AND c.ativo = true
+          AND (CAST(:q AS text) IS NULL
+               OR LOWER(c.nome) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%'))
+               OR c.telefone LIKE CONCAT('%', CAST(:q AS text), '%'))
+        """,
+        nativeQuery = true)
     Page<Cliente> buscar(
             @Param("prestadorId") UUID prestadorId,
             @Param("q") String q,

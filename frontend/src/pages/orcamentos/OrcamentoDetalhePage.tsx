@@ -14,7 +14,7 @@ export default function OrcamentoDetalhePage() {
     if (id) orcamentoService.buscar(id).then(setOrcamento)
   }, [id])
 
-  async function handleStatus(status: 'ENVIADO' | 'CANCELADO') {
+  async function handleStatus(status: 'ENVIADO' | 'RECUSADO') {
     if (!id) return
     const updated = await orcamentoService.atualizarStatus(id, status)
     setOrcamento(updated)
@@ -120,7 +120,7 @@ export default function OrcamentoDetalhePage() {
             </button>
           )}
           {podeCancelar && (
-            <button onClick={() => handleStatus('CANCELADO' as never)} className="text-sm text-red-600 hover:underline">
+            <button onClick={() => handleStatus('RECUSADO')} className="text-sm text-red-600 hover:underline">
               Cancelar orçamento
             </button>
           )}

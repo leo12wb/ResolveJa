@@ -87,8 +87,9 @@ public class FinanceiroService {
         ResumoFinanceiroResponse resumo = resumo(prestadorId, ano, mes);
 
         LocalDate[] lr = mesRangeLocal(ano, mes);
-        var despesas = despesaRepository.listar(
-                prestadorId, lr[0], lr[1], PageRequest.of(0, 500)).getContent();
+        List<DespesaResponse> despesas = despesaRepository.listar(
+                prestadorId, lr[0], lr[1], PageRequest.of(0, 500))
+                .getContent().stream().map(DespesaResponse::from).toList();
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         Document doc = new Document(PageSize.A4, 50, 50, 60, 60);

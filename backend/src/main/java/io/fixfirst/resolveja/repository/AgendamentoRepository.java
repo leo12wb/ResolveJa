@@ -12,13 +12,14 @@ import java.util.UUID;
 
 public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> {
 
-    @Query("""
-        SELECT a FROM Agendamento a
-        WHERE a.prestador.id = :prestadorId
-          AND (:inicio IS NULL OR a.dataHora >= :inicio)
-          AND (:fim IS NULL OR a.dataHora <= :fim)
-        ORDER BY a.dataHora ASC
-        """)
+    @Query(value = """
+        SELECT * FROM agendamento a
+        WHERE a.prestador_id = CAST(:prestadorId AS uuid)
+          AND (CAST(:inicio AS timestamptz) IS NULL OR a.data_hora >= CAST(:inicio AS timestamptz))
+          AND (CAST(:fim AS timestamptz) IS NULL OR a.data_hora <= CAST(:fim AS timestamptz))
+        ORDER BY a.data_hora ASC
+        """,
+        nativeQuery = true)
     List<Agendamento> listar(
         @Param("prestadorId") UUID prestadorId,
         @Param("inicio") Instant inicio,

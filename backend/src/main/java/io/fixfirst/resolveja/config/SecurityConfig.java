@@ -45,6 +45,7 @@ public class SecurityConfig {
                         "/api/auth/redefinir-senha").permitAll()
                 .requestMatchers(HttpMethod.GET,  "/api/orcamento/public/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/orcamento/public/**").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .anyRequest().authenticated()
             )
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { orcamentoService } from '../../services/orcamentoService'
 import { badgeOrcamento, labelOrcamento } from '../../utils/badges'
-import type { Orcamento, Page, StatusOrcamento } from '../../types'
+import type { Orcamento, Page } from '../../types'
 
 const STATUS_OPTS = [
   { value: '', label: 'Todos' },
